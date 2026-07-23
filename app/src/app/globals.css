@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  /* SkillCo Brand Colors */
+  --color-midnight: #0A0A0B;
+  --color-slate: #18181B;
+  --color-graphite: #27272A;
+  --color-violet: #8B5CF6;
+  --color-vivid: #A78BFA;
+  --color-lavender: #C4B5FD;
+  --color-snow: #FAFAFA;
+  --color-mist: #A1A1AA;
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  
+  /* Custom easing */
+  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Clash Display', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  
+  /* Colors */
+  --color-midnight: #0A0A0B;
+  --color-slate: #18181B;
+  --color-graphite: #27272A;
+  --color-violet: #8B5CF6;
+  --color-vivid: #A78BFA;
+  --color-lavender: #C4B5FD;
+  --color-snow: #FAFAFA;
+  --color-mist: #A1A1AA;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-midnight);
+  color: var(--color-snow);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-violet);
+  color: white;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-midnight);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-graphite);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-mist);
+}
