@@ -1,56 +1,167 @@
 # SkillCo
 
-Turn skills into companies. Develop it, design it, ship it, run it — one platform.
+## The World's Greatest Skill Library
 
-## Directory Structure
+A marketplace of skills for every area of work and platform. Skills scraped from GitHub, Clawdbot, and other sources, with advanced AWS-powered security screening to flag risky code and vulnerabilities.
+
+## 🚀 Features
+
+- **Universal Skill Discovery**: Browse skills for any platform, tool, or workflow
+- **Security-First**: Every skill automatically scanned for vulnerabilities
+- **Creator Economy**: Build and sell skills with 70% revenue share
+- **PAL Skill Builder**: AI-powered skill generation for Pro users
+- **Stripe Marketplace**: Secure payments and creator payouts
+
+## 📁 Repository Structure
 
 ```
 skillco/
-├── app/                    # Next.js 15 web application
-│   ├── src/
-│   │   ├── app/           # App router pages
-│   │   ├── components/    # React components
-│   │   └── lib/           # Utilities and hooks
-│   └── public/            # Static assets
 │
-├── business/              # Business documentation
-│   ├── branding/          # Brand identity, design tokens
-│   ├── prd/               # Product requirements
-│   └── canvas/            # Business model canvas
+├── Product/                  # Product & Engineering
+│   ├── web-app/            # Next.js 15 web application
+│   ├── marketplace/        # Skills repository & catalog
+│   ├── pal/                  # PAL skill builder engine
+│   ├── infrastructure/       # AWS CDK, Terraform
+│   └── docs/                 # Product documentation
 │
-├── agents/                # Agent team architecture
-│   └── AGENT-TEAMS.md     # Team templates and config
+├── Strategy/                 # Business strategy
+│   ├── vision/
+│   ├── positioning/
+│   ├── roadmap/
+│   └── competitive/
 │
-└── docs/                  # Additional documentation
+├── Operations/               # Business operations
+│   ├── processes/
+│   ├── playbooks/
+│   ├── legal/
+│   └── compliance/
+│
+├── Finance/                  # Financial planning
+│   ├── models/
+│   ├── projections/
+│   └── fundraising/
+│
+├── Marketing/                # Marketing & growth
+│   ├── brand/
+│   ├── content/
+│   ├── campaigns/
+│   └── partnerships/
+│
+├── Agents/                   # ROSTR Agent teams
+│   ├── AGENT-TEAMS.md
+│   └── configs/
+│
+├── ARCHITECTURE.md           # Full system architecture
+└── README.md                 # This file
 ```
 
-## Quick Start
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | Next.js 15, React 19, TypeScript, Tailwind CSS 4 |
+| **Auth** | Supabase Auth |
+| **Database** | Supabase PostgreSQL |
+| **Payments** | Stripe (Checkout + Connect) |
+| **Storage** | AWS S3 |
+| **Security Scanning** | AWS Lambda + CodeGuru |
+| **AI/LLM** | OpenAI/Anthropic for PAL |
+| **Hosting** | Vercel |
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 20+
+- npm or pnpm
+- Supabase account
+- Stripe account
+- AWS account (for security scanning)
+
+### Installation
 
 ```bash
-cd app
+# Clone repository
+git clone https://github.com/skillco/skillco.git
+cd skillco
+
+# Install dependencies
+cd Product/web-app
 npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your credentials
+
+# Run dev server
 npm run dev
 ```
 
 Visit http://localhost:3000
 
-## Tech Stack
+## 🔐 Security Scanning
 
-- **Framework:** Next.js 15 (App Router)
-- **Styling:** Tailwind CSS 4
-- **UI:** Radix UI + custom components
-- **Auth:** Supabase
-- **Payments:** Stripe
-- **Agents:** ROSTR Framework
-- **Hosting:** Vercel
+Every skill uploaded to SkillCo undergoes automated security scanning:
 
-## Links
+1. **Dependency Analysis**: Checks for known vulnerabilities
+2. **Static Analysis**: CodeGuru-powered code review
+3. **Secret Detection**: Scans for API keys, tokens, passwords
+4. **AI Pattern Analysis**: Detects hallucinated or unsafe code
 
-- **Live:** https://skillco.work
-- **Docs:** /docs
-- **Brand:** /business/branding/BRAND.md
-- **PRD:** /business/prd/PRD.md
+See `Product/infrastructure/cdk/scan-service/` for implementation details.
 
-## License
+## 💳 Payments
+
+- **Free Skills**: Require sign-in to download
+- **Paid Skills**: Stripe Checkout integration
+- **Creator Payouts**: Stripe Connect (70% to creator, 30% platform)
+
+## 🤖 PAL Skill Builder
+
+Pro users ($19/month) get access to PAL (Prompt-Augmented Library):
+
+- Natural language skill generation
+- Automatic documentation
+- Built-in security scanning
+- One-click marketplace publishing
+
+## 📊 Database Schema
+
+See `Product/infrastructure/supabase-schema.sql` for complete schema.
+
+Key tables:
+- `users` - User accounts and subscriptions
+- `skills` - Skill listings with metadata
+- `security_scans` - Scan results and findings
+- `purchases` - Transaction records
+- `reviews` - User reviews and ratings
+
+## 🏗️ Architecture
+
+See `ARCHITECTURE.md` for comprehensive system design including:
+
+- Directory structure
+- Data models
+- API design
+- Security scanning pipeline
+- PAL skill builder flow
+- Revenue model
+
+## 👥 Team
+
+SkillCo is built by a distributed team using ROSTR agent teams. See `Agents/AGENT-TEAMS.md` for team structure.
+
+## 📄 License
 
 Proprietary — SkillCo Inc.
+
+## 🔗 Links
+
+- **Live**: https://skillco.work
+- **Docs**: https://docs.skillco.work
+- **Blog**: https://blog.skillco.work
+- **Twitter**: https://twitter.com/skillco
+
+---
+
+Built with ❤️ by the SkillCo team
