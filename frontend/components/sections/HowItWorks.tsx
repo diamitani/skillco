@@ -20,7 +20,7 @@ const steps = [
   {
     number: "02",
     title: "Install",
-    description: "One-click add to your agent workspace. No setup required.",
+    description: "Download the skill as a zip and drop it into your agent's skills directory. The SKILL.md inside works with any model.",
     icon: DownloadSimple,
     color: "from-emerald-500/20 to-emerald-600/10",
     borderColor: "border-emerald-500/30",
@@ -37,7 +37,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    <section id="how-it-works" className="py-24 md:py-32 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-500/5 to-transparent" />
       

@@ -90,7 +90,7 @@ export function Hero() {
             <ArrowRight weight="bold" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link
-            href="#"
+            href="#how-it-works"
             className="group inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-200 px-6 py-4"
           >
             <div className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center group-hover:border-zinc-700 transition-colors">

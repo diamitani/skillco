@@ -2,19 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import {
-  ArrowRight,
-  DownloadSimple,
-  Star
-} from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react";
 import { FEATURED_SKILLS, CATEGORY_META } from "@/lib/skills";
-
-function formatInstalls(num: number): string {
-  if (num >= 1000) {
-    return `${(num / 1000).toFixed(1)}k`;
-  }
-  return num.toString();
-}
 
 export function SkillsShowcase() {
   return (
@@ -80,10 +69,9 @@ export function SkillsShowcase() {
                           {skill.category}
                         </span>
                       </div>
-                      <div className="flex items-center gap-1 text-zinc-500">
-                        <DownloadSimple weight="bold" className="w-3.5 h-3.5" />
-                        <span className="text-xs">{formatInstalls(skill.installs)}</span>
-                      </div>
+                      <span className="text-xs text-emerald-400 font-medium">
+                        Free
+                      </span>
                     </div>
                   </div>
                 </Link>

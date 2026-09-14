@@ -16,20 +16,15 @@ import {
 } from "@phosphor-icons/react";
 
 const navLinks = [
-  { 
-    name: "Marketplace", 
+  {
+    name: "Marketplace",
     href: "/marketplace",
     description: "Browse AI skills"
   },
-  { 
-    name: "Builder", 
-    href: "#",
-    description: "Create custom skills"
-  },
-  { 
-    name: "Docs", 
-    href: "#",
-    description: "Documentation & guides"
+  {
+    name: "Full library",
+    href: "/downloads/skill-library-full.zip",
+    description: "Download all 369 skills as a zip"
   },
 ];
 
@@ -68,12 +63,6 @@ export function Nav() {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              href="#"
-              className="text-sm text-zinc-400 hover:text-white transition-colors duration-200 font-medium"
-            >
-              Sign in
-            </Link>
             <Link
               href="/marketplace"
               className="text-sm bg-white text-black px-4 py-2 rounded-full font-medium hover:bg-zinc-200 transition-colors duration-200"
@@ -119,13 +108,6 @@ export function Nav() {
                 </Link>
               ))}
               <div className="pt-4 border-t border-zinc-800 flex flex-col gap-3">
-                <Link
-                  href="#"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-center text-zinc-400 hover:text-white transition-colors py-2"
-                >
-                  Sign in
-                </Link>
                 <Link
                   href="/marketplace"
                   onClick={() => setMobileMenuOpen(false)}

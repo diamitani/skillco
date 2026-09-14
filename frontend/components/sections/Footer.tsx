@@ -3,42 +3,22 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import { 
-  GithubLogo, 
-  TwitterLogo, 
-  DiscordLogo,
+  GithubLogo,
   ArrowRight
 } from "@phosphor-icons/react";
 
 const footerLinks = {
   Product: [
     { name: "Marketplace", href: "/marketplace" },
-    { name: "Builder", href: "#" },
-    { name: "Pricing", href: "#" },
-    { name: "Changelog", href: "#" },
+    { name: "Full library (.zip)", href: "/downloads/skill-library-full.zip" },
   ],
   Resources: [
-    { name: "Documentation", href: "#" },
-    { name: "API Reference", href: "#" },
-    { name: "Guides", href: "#" },
-    { name: "Blog", href: "#" },
-  ],
-  Company: [
-    { name: "About", href: "#" },
-    { name: "Careers", href: "#" },
-    { name: "Contact", href: "#" },
-    { name: "Press", href: "#" },
-  ],
-  Legal: [
-    { name: "Privacy", href: "#" },
-    { name: "Terms", href: "#" },
-    { name: "Security", href: "#" },
+    { name: "Source on GitHub", href: "https://github.com/diamitani/skillco" },
   ],
 };
 
 const socialLinks = [
-  { name: "GitHub", icon: GithubLogo, href: "#" },
-  { name: "Twitter", icon: TwitterLogo, href: "#" },
-  { name: "Discord", icon: DiscordLogo, href: "#" },
+  { name: "GitHub", icon: GithubLogo, href: "https://github.com/diamitani/skillco" },
 ];
 
 export function Footer() {
@@ -102,18 +82,9 @@ export function Footer() {
             © {new Date().getFullYear()} Skillco. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link
-              href="#"
-              className="text-sm text-zinc-500 hover:text-white transition-colors duration-200"
-            >
-              Status
-            </Link>
-            <Link
-              href="#"
-              className="text-sm text-zinc-500 hover:text-white transition-colors duration-200"
-            >
-              Sitemap
-            </Link>
+            <span className="text-sm text-zinc-500">
+              Early access — all downloads free
+            </span>
           </div>
         </div>
       </div>

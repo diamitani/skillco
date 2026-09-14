@@ -69,12 +69,13 @@ export function FinalCTA() {
               Browse free skills
               <ArrowRight weight="bold" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link
-              href="#"
+            <a
+              href="/downloads/skill-library-full.zip"
+              download="skill-library-full.zip"
               className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-200 font-medium px-6 py-4"
             >
-              Read the docs
-            </Link>
+              Download the full library
+            </a>
           </div>
         </motion.div>
       </div>
