@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
 import { 
-  GithubLogo,
-  ArrowRight
+  GithubLogo
 } from "@phosphor-icons/react";
 
 const footerLinks = {

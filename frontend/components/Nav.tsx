@@ -4,15 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
-  CaretDown, 
   List, 
   X,
-  Sparkle,
-  Code,
-  Robot,
-  PuzzlePiece,
-  BookOpen,
-  ArrowRight
+  Sparkle
 } from "@phosphor-icons/react";
 
 const navLinks = [

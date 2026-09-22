@@ -4,8 +4,7 @@ import { motion } from "motion/react";
 import { 
   MagnifyingGlass, 
   DownloadSimple, 
-  Rocket,
-  ArrowRight
+  Rocket
 } from "@phosphor-icons/react";
 
 const steps = [

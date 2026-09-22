@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   MagnifyingGlass,
   ArrowLeft,
@@ -178,13 +179,13 @@ export default function Marketplace() {
 
             {/* Back to top */}
             <div className="mt-12 text-center">
-              <a
+              <Link
                 href="/"
                 className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-200 font-medium text-sm"
               >
                 <ArrowLeft weight="bold" className="w-4 h-4" />
                 Back to home
-              </a>
+              </Link>
             </div>
           </div>
         </section>
