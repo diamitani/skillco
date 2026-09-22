@@ -1,7 +1,9 @@
 import Stripe from "stripe";
 
+const stripeApiKey = process.env.STRIPE_SECRET_KEY || "sk_test_placeholder_for_build";
+
 // Initialize the Stripe server client with secret key and apiVersion
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
+export const stripe = new Stripe(stripeApiKey, {
   apiVersion: "2025-02-24.acacia" as Stripe.LatestApiVersion,
   appInfo: {
     name: "SkillCo Platform",
