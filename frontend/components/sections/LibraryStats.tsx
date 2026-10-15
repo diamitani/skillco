@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
 import { SKILLS, CATEGORIES, CATEGORY_META } from "@/lib/skills";
 
 export function LibraryStats() {
@@ -10,51 +7,34 @@ export function LibraryStats() {
   }));
 
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
-            The library, at a glance
-          </h2>
-          <p className="text-zinc-400 max-w-lg mx-auto mb-8">
-            {SKILLS.length} skills, {CATEGORIES.length} categories — every one a
-            real, downloadable SKILL.md file
+    <section className="theme-dark bg-bg py-20 text-fg md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-14 max-w-2xl">
+          <h2 className="t-display text-3xl md:text-4xl">The index at a glance</h2>
+          <p className="mt-3 text-fg-2">
+            <span className="t-mono text-fg">{SKILLS.length}</span> skills in{" "}
+            <span className="t-mono text-fg">{CATEGORIES.length}</span>{" "}
+            categories. Every one is a real, downloadable SKILL.md.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Category counts */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          {counts.map((item, index) => {
-            const meta = CATEGORY_META[item.category] ?? CATEGORY_META["Other"];
-            const CategoryIcon = meta.icon;
+        <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3 lg:grid-cols-4">
+          <li className="bg-surface-2 p-6">
+            <div className="t-mono mb-6 text-sm text-lift">skillco.work</div>
+            <div className="t-display text-4xl">{SKILLS.length}</div>
+            <div className="mt-1 text-sm text-fg-2">Skills in the index</div>
+          </li>
+          {counts.map((item) => {
+            const Icon = (CATEGORY_META[item.category] ?? CATEGORY_META["Other"]).icon;
             return (
-              <motion.div
-                key={item.category}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className={`relative p-6 rounded-2xl bg-gradient-to-br ${meta.color} border ${meta.borderColor} backdrop-blur-sm`}
-              >
-                <div className="w-12 h-12 rounded-xl bg-zinc-900/80 border border-zinc-800 flex items-center justify-center mb-4">
-                  <CategoryIcon weight="fill" className="w-6 h-6 text-white" />
-                </div>
-                <div className="text-3xl font-bold text-white">{item.count}</div>
-                <div className="text-sm text-zinc-400 mt-1">{item.category}</div>
-              </motion.div>
+              <li key={item.category} className="bg-surface p-6">
+                <Icon weight="bold" className="mb-6 h-6 w-6 text-lift" />
+                <div className="t-display text-4xl">{item.count}</div>
+                <div className="mt-1 text-sm text-fg-2">{item.category}</div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );

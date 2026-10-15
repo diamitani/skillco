@@ -1,13 +1,10 @@
-"use client";
-
 import Link from "next/link";
-import { 
-  GithubLogo
-} from "@phosphor-icons/react";
+import { GithubLogo } from "@phosphor-icons/react/dist/ssr";
+import { Logo } from "@/components/brand/Logo";
 
 const footerLinks = {
   Product: [
-    { name: "Marketplace", href: "/marketplace" },
+    { name: "Browse skills", href: "/marketplace" },
     { name: "Full library (.zip)", href: "/downloads/skill-library-full.zip" },
   ],
   Resources: [
@@ -15,55 +12,38 @@ const footerLinks = {
   ],
 };
 
-const socialLinks = [
-  { name: "GitHub", icon: GithubLogo, href: "https://github.com/diamitani/skillco" },
-];
-
-export function Footer() {
+export function Footer({ theme = "dark" }: { theme?: "light" | "dark" }) {
   return (
-    <footer className="relative border-t border-zinc-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main footer content */}
-        <div className="py-16 grid grid-cols-2 md:grid-cols-6 gap-8">
-          {/* Brand column */}
+    <footer
+      className={`border-t border-line bg-bg text-fg ${theme === "dark" ? "theme-dark" : ""}`}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 gap-10 py-14 md:grid-cols-4">
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
-              </div>
-              <span className="text-lg font-semibold text-white">Skillco</span>
+            <Link href="/" aria-label="SkillCo home" className="inline-block">
+              <Logo tone={theme} variant="h-domain" height={64} />
             </Link>
-            <p className="text-zinc-400 text-sm mb-6 max-w-xs">
-              The marketplace for AI skills. Browse, build, and deploy for Claude, Codex, Hermes, and OpenClaw.
+            <p className="mt-4 max-w-xs text-sm text-fg-2">
+              The skill index for AI agents.
             </p>
-            
-            {/* Social links */}
-            <div className="flex items-center gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-700 transition-all duration-200"
-                  aria-label={social.name}
-                >
-                  <social.icon weight="fill" className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
+            <a
+              href="https://github.com/diamitani/skillco"
+              aria-label="SkillCo on GitHub"
+              className="mt-6 inline-flex h-11 w-11 items-center justify-center rounded-md border border-line text-fg-2 transition-colors hover:border-line-strong hover:text-fg"
+            >
+              <GithubLogo weight="fill" className="h-5 w-5" />
+            </a>
           </div>
 
-          {/* Link columns */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h3 className="text-sm font-semibold text-white mb-4">{category}</h3>
+          {Object.entries(footerLinks).map(([group, links]) => (
+            <div key={group}>
+              <h3 className="mb-4 text-sm font-bold">{group}</h3>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-zinc-400 hover:text-white transition-colors duration-200"
+                      className="text-sm text-fg-2 transition-colors hover:text-fg"
                     >
                       {link.name}
                     </Link>
@@ -74,16 +54,11 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Bottom bar */}
-        <div className="py-6 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-zinc-500">
-            © {new Date().getFullYear()} Skillco. All rights reserved.
+        <div className="flex flex-col items-start justify-between gap-3 border-t border-line py-6 text-sm text-fg-3 sm:flex-row sm:items-center">
+          <p>
+            SkillCo · <span className="t-mono">skillco.work</span> · Skills that work.
           </p>
-          <div className="flex items-center gap-6">
-            <span className="text-sm text-zinc-500">
-              Early access — all downloads free
-            </span>
-          </div>
+          <p>Early access. All downloads free.</p>
         </div>
       </div>
     </footer>

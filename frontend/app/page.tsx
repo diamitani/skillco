@@ -10,7 +10,7 @@ import { Footer } from "@/components/sections/Footer";
 export default function Home() {
   return (
     <>
-      <Nav />
+      <Nav theme="dark" />
       <main className="flex-1">
         <Hero />
         <SkillsShowcase />

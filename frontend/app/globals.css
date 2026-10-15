@@ -1,112 +1,217 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   SkillCo design tokens v2.0 (October 2026)
+   Source of truth: Marketing/brand/v2/tokens.css and BRAND-v2.md
+   Light is the default (catalog, docs). Add `.theme-dark` to any element to
+   flip every token inside it to the dark set (hero, video, social, footer).
+   Use the semantic tokens (bg, surface, fg, line...) in components, never raw
+   hex, so a section can change theme without touching its markup.
+   ========================================================================== */
+
 :root {
-  --background: #0a0a0a;
-  --foreground: #fafafa;
-  --card: #111111;
-  --card-foreground: #fafafa;
-  --popover: #111111;
-  --popover-foreground: #fafafa;
-  --primary: #6366f1;
-  --primary-foreground: #fafafa;
-  --secondary: #27272a;
-  --secondary-foreground: #fafafa;
-  --muted: #27272a;
-  --muted-foreground: #a1a1aa;
-  --accent: #27272a;
-  --accent-foreground: #fafafa;
-  --destructive: #ef4444;
-  --destructive-foreground: #fafafa;
-  --border: #27272a;
-  --input: #27272a;
-  --ring: #6366f1;
-  --radius: 0.75rem;
+  /* brand constants */
+  --ultra: #2f3cff; /* brand blue. Buttons, large fields, text on light */
+  --lift: #7c8bff; /* brand blue on dark. Links, thin icons */
+  --tint: #e8edff; /* the mark and text on dark, pale panels */
+  --navy: #0b1230; /* dark surfaces, node outline, code blocks */
+  --ink: #0a0e1a; /* dark page background, text on light */
+  --lime: #c6ff3d; /* the single accent. One highlight per screen */
+
+  /* light theme (default) */
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --surface-2: #eef1fb;
+  --line: #dde1f0;
+  --line-strong: #b9c0dc;
+  --fg: #0a0e1a;
+  --fg-2: #4a5170;
+  --fg-3: #6b7290;
+  --link: #2f3cff;
+  --btn-bg: #2f3cff;
+  --btn-bg-hover: #2430d9;
+  --btn-fg: #ffffff;
+  --focus: #2f3cff;
+  --glyph-lit: #2f3cff;
+  --ok: #067647;
+  --warn: #b54708;
+  --bad: #b42318;
+
+  /* radii and motion */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.theme-dark {
+  --bg: #0a0e1a;
+  --surface: #0f1530;
+  --surface-2: #131a3a;
+  --line: #232c55;
+  --line-strong: #3a4577;
+  --fg: #e8edff;
+  --fg-2: #a7b0d6;
+  --fg-3: #8890b8;
+  --link: #7c8bff;
+  --btn-bg-hover: #4452ff;
+  --focus: #7c8bff;
+  --glyph-lit: #7c8bff;
+  --ok: #47cd89;
+  --warn: #fdb022;
+  --bad: #f97066;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* brand constants as utilities: bg-ultra, text-lift, border-navy ... */
+  --color-ultra: var(--ultra);
+  --color-lift: var(--lift);
+  --color-tint: var(--tint);
+  --color-navy: var(--navy);
+  --color-ink: var(--ink);
+  --color-lime: var(--lime);
+
+  /* blue scale */
+  --color-blue-50: #f2f4ff;
+  --color-blue-100: #e8edff;
+  --color-blue-200: #cbd3ff;
+  --color-blue-300: #a6b2ff;
+  --color-blue-400: #7c8bff;
+  --color-blue-500: #5163ff;
+  --color-blue-600: #2f3cff;
+  --color-blue-700: #2430d9;
+  --color-blue-800: #1b24a8;
+  --color-blue-900: #141b78;
+  --color-blue-950: #0b1230;
+
+  /* semantic, theme-aware: bg-bg, bg-surface, text-fg-2, border-line ... */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-link: var(--link);
+  --color-btn: var(--btn-bg);
+  --color-btn-hover: var(--btn-bg-hover);
+  --color-btn-fg: var(--btn-fg);
+  --color-focus: var(--focus);
+  --color-glyph-lit: var(--glyph-lit);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+
+  /* radii: 6 / 10 / 14 / 20 */
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+
+  /* type */
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-display: var(--font-jakarta), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, Menlo, monospace;
+
+  --ease-brand: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-* {
-  border-color: var(--border);
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Custom scrollbar for dark theme */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+::selection {
+  background: var(--ultra);
+  color: #ffffff;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--background);
+/* Focus: 3px ring on every interactive element (brand rule) */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--secondary);
-  border-radius: 4px;
+/* Display type: Plus Jakarta Sans 800, tight tracking */
+.t-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--muted-foreground);
+/* Mono labels: domains, skill IDs, code */
+.t-mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
-/* Gradient text utility */
-.gradient-text {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Dot grid, the same texture as the OG image */
+.dot-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in srgb, var(--lift) 28%, transparent) 1.25px,
+    transparent 1.5px
+  );
+  background-size: 28px 28px;
 }
 
-/* Glass effect */
-.glass {
-  background: rgba(17, 17, 17, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* The Trace: path draws in over 700ms, the lit node pops at 620ms.
+   End frame equals the static logo. Reduced motion shows the finished mark. */
+@keyframes trace-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes node-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.trace-animate .trace-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: trace-draw 700ms var(--ease) forwards;
+}
+.trace-animate .trace-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: node-pop 260ms var(--ease) 620ms forwards;
 }
 
-/* Glow effect */
-.glow {
-  box-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
-}
-
-/* Grid pattern background */
-.grid-pattern {
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .trace-animate .trace-path {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .trace-animate .trace-node {
+    opacity: 1;
+    animation: none;
+  }
 }

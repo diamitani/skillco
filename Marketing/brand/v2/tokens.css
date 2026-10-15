@@ -1,0 +1,36 @@
+/* SkillCo design tokens v2.0 (October 2026). Paste into app/globals.css.
+   Fonts: Plus Jakarta Sans (400-800) and JetBrains Mono (400-500) from Google Fonts or next/font/google. */
+:root {
+  /* brand constants */
+  --ultra: #2F3CFF;      /* brand blue. Buttons, large fields, text on light */
+  --lift: #7C8BFF;       /* brand blue on dark. Links, thin icons */
+  --tint: #E8EDFF;       /* the mark and text on dark, pale panels */
+  --navy: #0B1230;       /* dark surfaces, node outline, code blocks */
+  --ink: #0A0E1A;        /* dark page background, text on light */
+  --lime: #C6FF3D;       /* the single accent. One highlight per screen */
+
+  /* type */
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+  /* light theme */
+  --bg: #F6F7FB; --surface: #FFFFFF; --surface-2: #EEF1FB; --line: #DDE1F0; --line-strong: #B9C0DC;
+  --fg: #0A0E1A; --fg-2: #4A5170; --fg-3: #6B7290;
+  --link: #2F3CFF; --btn-bg: #2F3CFF; --btn-bg-hover: #2430D9; --btn-fg: #FFFFFF; --focus: #2F3CFF;
+  --ok: #067647; --warn: #B54708; --bad: #B42318;
+
+  /* spacing (4px base), radii, motion */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px; --space-24: 96px;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-xl: 20px; --r-full: 9999px;
+  --ease: cubic-bezier(.32, .72, 0, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0A0E1A; --surface: #0F1530; --surface-2: #131A3A; --line: #232C55; --line-strong: #3A4577;
+    --fg: #E8EDFF; --fg-2: #A7B0D6; --fg-3: #8890B8;
+    --link: #7C8BFF; --btn-bg: #2F3CFF; --btn-bg-hover: #4452FF; --btn-fg: #FFFFFF; --focus: #7C8BFF;
+    --ok: #47CD89; --warn: #FDB022; --bad: #F97066;
+  }
+}
