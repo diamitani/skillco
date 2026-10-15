@@ -1,26 +1,59 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrains = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
 });
+
+const TITLE = "SkillCo | Skills that work.";
+const DESCRIPTION =
+  "The skill index for AI agents. Browse ready-to-install skills, download one, and drop it into your agent.";
 
 export const metadata: Metadata = {
-  title: "Skillco | AI Skills Marketplace",
-  description: "Browse, build, and deploy AI skills for Claude, Codex, Hermes, and OpenClaw. The marketplace for agent capabilities.",
-  keywords: ["AI skills", "Claude", "Codex", "Hermes", "OpenClaw", "agent marketplace", "AI tools"],
-  openGraph: {
-    title: "Skillco | AI Skills Marketplace",
-    description: "Browse, build, and deploy AI skills for Claude, Codex, Hermes, and OpenClaw.",
-    type: "website",
+  metadataBase: new URL("https://skillco.work"),
+  title: {
+    default: TITLE,
+    template: "%s | SkillCo",
   },
+  description: DESCRIPTION,
+  applicationName: "SkillCo",
+  keywords: [
+    "AI skills",
+    "agent skills",
+    "SKILL.md",
+    "Claude",
+    "Codex",
+    "Hermes",
+    "OpenClaw",
+    "skill index",
+  ],
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    siteName: "SkillCo",
+    type: "website",
+    url: "https://skillco.work",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0A0E1A",
 };
 
 export default function RootLayout({
@@ -31,9 +64,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${jakarta.variable} ${jetbrains.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#0a0a0a] text-white">{children}</body>
+      <body className="min-h-full flex flex-col bg-bg text-fg">{children}</body>
     </html>
   );
 }

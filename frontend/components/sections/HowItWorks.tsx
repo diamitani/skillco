@@ -1,104 +1,58 @@
-"use client";
-
-import { motion } from "motion/react";
-import { 
-  MagnifyingGlass, 
-  DownloadSimple, 
-  Rocket
-} from "@phosphor-icons/react";
+import { MagnifyingGlass, DownloadSimple, Play } from "@phosphor-icons/react/dist/ssr";
 
 const steps = [
   {
     number: "01",
-    title: "Browse",
-    description: "Search skills by category, platform, or use case. Filter by what matters to you.",
+    title: "Find",
+    description:
+      "Describe the job or filter by category. You get the skills that mention what you asked for.",
     icon: MagnifyingGlass,
-    color: "from-blue-500/20 to-blue-600/10",
-    borderColor: "border-blue-500/30",
   },
   {
     number: "02",
-    title: "Install",
-    description: "Download the skill as a zip and drop it into your agent's skills directory. The SKILL.md inside works with any model.",
+    title: "Download",
+    description:
+      "Each skill is a zip with a SKILL.md inside. It is plain instructions, so it works with any model.",
     icon: DownloadSimple,
-    color: "from-emerald-500/20 to-emerald-600/10",
-    borderColor: "border-emerald-500/30",
   },
   {
     number: "03",
-    title: "Deploy",
-    description: "Use instantly or customize for your specific needs.",
-    icon: Rocket,
-    color: "from-purple-500/20 to-purple-600/10",
-    borderColor: "border-purple-500/30",
+    title: "Run",
+    description:
+      "Drop it into your agent's skills folder and ask for the job. Edit the SKILL.md to make it yours.",
+    icon: Play,
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-24 md:py-32 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-500/5 to-transparent" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
-            How it works
-          </h2>
-          <p className="text-zinc-400 max-w-lg mx-auto">
-            Get started in minutes, not hours
+    <section id="how-it-works" className="border-y border-line bg-surface-2 py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-14 max-w-2xl">
+          <p className="t-mono mb-3 text-xs text-link">ask · match · run</p>
+          <h2 className="t-display text-3xl md:text-4xl">Pick a skill. Add it to your agent.</h2>
+          <p className="mt-3 text-fg-2">
+            A skill is a packaged set of instructions your agent follows.
           </p>
-        </motion.div>
-
-        {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="relative"
-            >
-              {/* Connector line (desktop only) */}
-              {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-16 left-full w-full h-px">
-                  <div className="w-full h-full bg-gradient-to-r from-zinc-800 via-zinc-700 to-zinc-800" />
-                </div>
-              )}
-
-              <div className={`relative p-8 rounded-2xl bg-gradient-to-br ${step.color} border ${step.borderColor} backdrop-blur-sm h-full`}>
-                {/* Step number */}
-                <div className="absolute -top-4 left-8">
-                  <span className="text-xs font-mono text-zinc-500 tracking-wider">
-                    STEP {step.number}
-                  </span>
-                </div>
-
-                {/* Icon */}
-                <div className="w-14 h-14 rounded-xl bg-zinc-900/80 border border-zinc-800 flex items-center justify-center mb-6">
-                  <step.icon weight="fill" className="w-7 h-7 text-white" />
-                </div>
-
-                {/* Content */}
-                <h3 className="text-xl font-semibold text-white mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-zinc-400 leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
         </div>
+
+        <ol className="grid gap-5 md:grid-cols-3">
+          {steps.map((step) => (
+            <li
+              key={step.number}
+              className="rounded-lg border border-line bg-surface p-7"
+            >
+              <div className="mb-8 flex items-center justify-between">
+                <span className="t-mono text-sm text-fg-3">{step.number}</span>
+                <span className="flex h-11 w-11 items-center justify-center rounded-md bg-ultra text-white">
+                  <step.icon weight="bold" className="h-5 w-5" />
+                </span>
+              </div>
+              <h3 className="text-xl font-bold tracking-tight">{step.title}</h3>
+              <p className="mt-2 leading-relaxed text-fg-2">{step.description}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

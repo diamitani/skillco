@@ -2,7 +2,7 @@
 
 Reads ~/workspace/skill-library/dist/manifest.json (369 skills) and emits a
 typed TS module: Skill type, SKILLS array, CATEGORIES, CATEGORY_META
-(icon + color scheme per category), and FEATURED_SKILLS (8 spanning categories).
+(icon per category), and FEATURED_SKILLS (8 spanning categories).
 """
 import json
 import os
@@ -20,15 +20,15 @@ CAT_LABELS = {
     "other": "Other",
 }
 
-# icon component name (from @phosphor-icons/react), gradient, border
+# icon component name (from @phosphor-icons/react). Colour is not per-category: brand v2 is single-accent.
 CAT_STYLE = {
-    "AI Agents": ("Robot", "from-blue-500/20 to-blue-600/20", "border-blue-500/30"),
-    "Dev Tools": ("Code", "from-cyan-500/20 to-cyan-600/20", "border-cyan-500/30"),
-    "Music": ("MusicNotes", "from-purple-500/20 to-purple-600/20", "border-purple-500/30"),
-    "Automation": ("Lightning", "from-orange-500/20 to-orange-600/20", "border-orange-500/30"),
-    "Prospecting": ("MagnifyingGlass", "from-rose-500/20 to-rose-600/20", "border-rose-500/30"),
-    "Data": ("Database", "from-amber-500/20 to-amber-600/20", "border-amber-500/30"),
-    "Other": ("FileText", "from-teal-500/20 to-teal-600/20", "border-teal-500/30"),
+    "AI Agents": ("Robot",),
+    "Dev Tools": ("Code",),
+    "Music": ("MusicNotes",),
+    "Automation": ("Lightning",),
+    "Prospecting": ("MagnifyingGlass",),
+    "Data": ("Database",),
+    "Other": ("FileText",),
 }
 
 
@@ -83,8 +83,8 @@ def main() -> None:
     lines.append('')
     lines.append('import {')
     lines.append('  ' + ',\n  '.join(icons_used) + ',')
-    lines.append('  type Icon,')
-    lines.append('} from "@phosphor-icons/react";')
+    lines.append('} from "@phosphor-icons/react/dist/ssr";')
+    lines.append('import type { Icon } from "@phosphor-icons/react"; // type only, erased at build')
     lines.append('')
     lines.append('export interface Skill {')
     lines.append('  id: string;')
@@ -100,8 +100,6 @@ def main() -> None:
     lines.append('')
     lines.append('export interface CategoryMeta {')
     lines.append('  icon: Icon;')
-    lines.append('  color: string;')
-    lines.append('  borderColor: string;')
     lines.append('}')
     lines.append('')
     lines.append('export const CATEGORIES: string[] = [')
@@ -111,8 +109,8 @@ def main() -> None:
     lines.append('')
     lines.append('export const CATEGORY_META: Record<string, CategoryMeta> = {')
     for c in categories:
-        icon, color, border = CAT_STYLE[c]
-        lines.append(f'  {ts_str(c)}: {{ icon: {icon}, color: {ts_str(color)}, borderColor: {ts_str(border)} }},')
+        (icon,) = CAT_STYLE[c]
+        lines.append(f'  {ts_str(c)}: {{ icon: {icon} }},')
     lines.append('};')
     lines.append('')
     lines.append('export const SKILLS: Skill[] = [')

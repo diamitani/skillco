@@ -2,7 +2,7 @@
 
 ## Brand Guidelines
 
-See `/business/branding/BRAND.md` for complete brand assets.
+**Current brand: v2.0 (October 2026).** See `brand/v2/BRAND-v2.md` for the decisions, `brand/v2/TAGLINE-AND-VOICE.md` for copy and voice, and `brand/v2/svg` / `brand/v2/png` for the logo files. This replaces the older violet/gear-S brand in `/business/branding/BRAND.md`. How the brand is wired into code: `frontend/DESIGN-SYSTEM.md`.
 
 ### Voice & Tone
 

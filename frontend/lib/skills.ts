@@ -10,8 +10,8 @@ import {
   MagnifyingGlass,
   MusicNotes,
   Robot,
-  type Icon,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
+import type { Icon } from "@phosphor-icons/react"; // type only, erased at build
 
 export interface Skill {
   id: string;
@@ -27,8 +27,6 @@ export interface Skill {
 
 export interface CategoryMeta {
   icon: Icon;
-  color: string;
-  borderColor: string;
 }
 
 export const CATEGORIES: string[] = [
@@ -42,13 +40,13 @@ export const CATEGORIES: string[] = [
 ];
 
 export const CATEGORY_META: Record<string, CategoryMeta> = {
-  "AI Agents": { icon: Robot, color: "from-blue-500/20 to-blue-600/20", borderColor: "border-blue-500/30" },
-  "Dev Tools": { icon: Code, color: "from-cyan-500/20 to-cyan-600/20", borderColor: "border-cyan-500/30" },
-  "Music": { icon: MusicNotes, color: "from-purple-500/20 to-purple-600/20", borderColor: "border-purple-500/30" },
-  "Automation": { icon: Lightning, color: "from-orange-500/20 to-orange-600/20", borderColor: "border-orange-500/30" },
-  "Prospecting": { icon: MagnifyingGlass, color: "from-rose-500/20 to-rose-600/20", borderColor: "border-rose-500/30" },
-  "Data": { icon: Database, color: "from-amber-500/20 to-amber-600/20", borderColor: "border-amber-500/30" },
-  "Other": { icon: FileText, color: "from-teal-500/20 to-teal-600/20", borderColor: "border-teal-500/30" },
+  "AI Agents": { icon: Robot },
+  "Dev Tools": { icon: Code },
+  "Music": { icon: MusicNotes },
+  "Automation": { icon: Lightning },
+  "Prospecting": { icon: MagnifyingGlass },
+  "Data": { icon: Database },
+  "Other": { icon: FileText },
 };
 
 export const SKILLS: Skill[] = [
