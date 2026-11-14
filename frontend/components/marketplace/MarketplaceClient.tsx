@@ -51,6 +51,7 @@ export function MarketplaceClient({ initialQuery }: { initialQuery: string }) {
               <Button asChild>
                 <Link href="/dashboard/new"><Lightning weight="bold" className="h-4 w-4" />Build your own</Link>
               </Button>
+              <Link href="/marketplace/github" className={cn(buttonVariants({ variant: "secondary" }))}>GitHub library</Link>
               <a href="/downloads/skill-library-full.zip" download="skill-library-full.zip" className={cn(buttonVariants({ variant: "secondary" }))}>
                 <DownloadSimple weight="bold" className="h-4 w-4" />Full library
               </a>
