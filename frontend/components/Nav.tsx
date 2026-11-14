@@ -9,11 +9,8 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { name: "Skills", href: "/marketplace", description: "Browse the index" },
-  {
-    name: "Full library",
-    href: "/downloads/skill-library-full.zip",
-    description: "Download every skill as one zip",
-  },
+  { name: "Build", href: "/dashboard/new", description: "Generate a skill from a goal" },
+  { name: "Pricing", href: "/pricing", description: "Free, Builder $5.99, Pro" },
   {
     name: "GitHub",
     href: "https://github.com/diamitani/skillco",
@@ -55,9 +52,12 @@ export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
           ))}
         </div>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-3 md:flex">
+          <Button asChild variant="secondary">
+            <Link href="/sign-in">Sign in</Link>
+          </Button>
           <Button asChild>
-            <Link href="/marketplace">Browse skills</Link>
+            <Link href="/dashboard">Dashboard</Link>
           </Button>
         </div>
 
@@ -91,9 +91,14 @@ export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
                 <div className="text-sm text-fg-3">{link.description}</div>
               </Link>
             ))}
-            <Button asChild className="mt-3 w-full">
-              <Link href="/marketplace" onClick={() => setOpen(false)}>
-                Browse skills
+            <Button asChild variant="secondary" className="mt-3 w-full">
+              <Link href="/sign-in" onClick={() => setOpen(false)}>
+                Sign in
+              </Link>
+            </Button>
+            <Button asChild className="mt-2 w-full">
+              <Link href="/dashboard" onClick={() => setOpen(false)}>
+                Dashboard
               </Link>
             </Button>
           </div>
