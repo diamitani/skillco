@@ -5,6 +5,8 @@ import { Logo } from "@/components/brand/Logo";
 const footerLinks = {
   Product: [
     { name: "Browse skills", href: "/marketplace" },
+    { name: "Build a skill", href: "/dashboard/new" },
+    { name: "Pricing", href: "/pricing" },
     { name: "Full library (.zip)", href: "/downloads/skill-library-full.zip" },
   ],
   Resources: [

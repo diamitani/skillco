@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { DownloadSimple } from "@phosphor-icons/react/dist/ssr";
 import { SkillGlyph } from "@/components/brand/SkillGlyph";
 import { buttonVariants } from "@/components/ui/Button";
@@ -10,14 +11,16 @@ export function SkillCard({ skill }: { skill: Skill }) {
   const CategoryIcon = meta.icon;
 
   return (
-    <article className="flex h-full flex-col rounded-lg border border-line bg-surface p-5 transition-colors duration-200 hover:border-line-strong">
+    <article className="relative flex h-full flex-col rounded-lg border border-line bg-surface p-5 transition-colors duration-200 hover:border-line-strong">
       <div className="flex items-start gap-4">
         <SkillGlyph id={skill.id} size={48} />
         <div className="min-w-0">
           <h3 className="text-lg font-bold leading-snug tracking-tight">
-            {skill.name}
+            <Link href={`/marketplace/${skill.id}`} className="hover:text-link after:absolute after:inset-0">
+              {skill.name}
+            </Link>
           </h3>
-          <p className="t-mono truncate text-xs text-fg-3">{skill.id}</p>
+          <p className="t-mono truncate text-xs text-fg-3">skillco/{skill.id}</p>
         </div>
       </div>
 
@@ -40,7 +43,7 @@ export function SkillCard({ skill }: { skill: Skill }) {
         download={`${skill.id}.zip`}
         className={cn(
           buttonVariants({ variant: "secondary" }),
-          "mt-4 w-full"
+          "relative z-10 mt-4 w-full"
         )}
       >
         <DownloadSimple weight="bold" className="h-4 w-4" />

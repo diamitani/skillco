@@ -1,94 +1,94 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe, stripeConfig } from "@/lib/stripe";
 import Stripe from "stripe";
+import { stripe } from "@/lib/stripe";
+import { env } from "@/lib/env";
+import { createServiceClient } from "@/lib/supabase/server";
+import { PLANS, type PlanId } from "@/lib/billing/plans";
 
+export const runtime = "nodejs";
+
+/** Stripe webhook. Signature verification is always required. */
 export async function POST(req: NextRequest) {
   const body = await req.text();
   const signature = req.headers.get("stripe-signature");
-
-  if (!signature || !stripeConfig.webhookSecret) {
-    // If webhook secret isn't configured in dev, parse without signature verification for inspection
-    if (process.env.NODE_ENV === "development" && !stripeConfig.webhookSecret) {
-      console.warn("[Stripe Webhook]: Running without STRIPE_WEBHOOK_SECRET verification in development.");
-      const event = JSON.parse(body) as Stripe.Event;
-      await handleEvent(event);
-      return NextResponse.json({ received: true });
-    }
-
-    return NextResponse.json(
-      { error: "Missing stripe-signature or webhook secret" },
-      { status: 400 }
-    );
-  }
+  if (!signature || !env.stripeWebhookSecret)
+    return NextResponse.json({ error: "Missing stripe-signature or webhook secret" }, { status: 400 });
 
   let event: Stripe.Event;
-
   try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      signature,
-      stripeConfig.webhookSecret
-    );
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Invalid signature";
-    console.error(`[Stripe Webhook Signature Error]: ${message}`);
-    return NextResponse.json(
-      { error: `Webhook signature verification failed: ${message}` },
-      { status: 400 }
-    );
+    event = stripe.webhooks.constructEvent(body, signature, env.stripeWebhookSecret);
+  } catch (err) {
+    return NextResponse.json({ error: `Signature verification failed: ${err instanceof Error ? err.message : err}` }, { status: 400 });
   }
 
+  const admin = createServiceClient();
+  if (!admin) return NextResponse.json({ error: "Supabase service key missing" }, { status: 500 });
+
   try {
-    await handleEvent(event);
+    switch (event.type) {
+      case "customer.subscription.created":
+      case "customer.subscription.updated":
+      case "customer.subscription.deleted": {
+        const sub = event.data.object as Stripe.Subscription;
+        await syncSubscription(admin, sub, event.type === "customer.subscription.deleted");
+        break;
+      }
+      case "invoice.paid": {
+        // New billing period: reset monthly credits and overage counters.
+        const inv = event.data.object as Stripe.Invoice;
+        const customer = typeof inv.customer === "string" ? inv.customer : inv.customer?.id;
+        if (customer && inv.billing_reason !== "subscription_create") {
+          await admin
+            .from("profiles")
+            .update({ credits_used: 0, overage_cents_this_period: 0, period_start: new Date().toISOString() })
+            .eq("stripe_customer_id", customer);
+        }
+        break;
+      }
+      default:
+        break;
+    }
     return NextResponse.json({ received: true });
-  } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Unknown error";
-    console.error(`[Stripe Webhook Processing Error]: ${message}`);
-    return NextResponse.json(
-      { error: "Webhook handler failed" },
-      { status: 500 }
-    );
+  } catch (e) {
+    console.error("[stripe webhook]", e);
+    return NextResponse.json({ error: "Webhook handler failed" }, { status: 500 });
   }
 }
 
-async function handleEvent(event: Stripe.Event) {
-  switch (event.type) {
-    case "checkout.session.completed": {
-      const session = event.data.object as Stripe.Checkout.Session;
-      console.log(`[Stripe] Checkout Session completed: ${session.id}, Customer: ${session.customer}`);
-      // In production: Upsert entitlement / subscription in database
-      break;
-    }
+async function syncSubscription(admin: NonNullable<ReturnType<typeof createServiceClient>>, sub: Stripe.Subscription, deleted: boolean) {
+  const customer = typeof sub.customer === "string" ? sub.customer : sub.customer.id;
+  const { data: profile } = await admin.from("profiles").select("id").eq("stripe_customer_id", customer).single();
+  const userId = profile?.id ?? sub.metadata?.supabase_user_id;
+  if (!userId) return;
 
-    case "customer.subscription.created":
-    case "customer.subscription.updated": {
-      const subscription = event.data.object as Stripe.Subscription;
-      console.log(`[Stripe] Subscription ${subscription.id} status: ${subscription.status}`);
-      // In production: Update user subscription tier (pro, enterprise)
-      break;
-    }
+  const items = sub.items.data;
+  const base = items.find((i) => i.price.id === env.priceBuilder || i.price.id === env.pricePro);
+  const metered = items.find((i) => i.price.id === env.priceOverage);
+  const storageAddons = items.filter((i) => i.price.id === env.priceStorage10).reduce((n, i) => n + (i.quantity ?? 1), 0);
+  const plan: PlanId = base?.price.id === env.pricePro ? "pro" : "builder";
+  const active = !deleted && ["active", "trialing", "past_due"].includes(sub.status);
+  const effective: PlanId = active ? plan : "free";
+  const first = items[0];
 
-    case "customer.subscription.deleted": {
-      const subscription = event.data.object as Stripe.Subscription;
-      console.log(`[Stripe] Subscription ${subscription.id} cancelled`);
-      // In production: Revert user to free tier
-      break;
-    }
+  await admin.from("subscriptions").upsert({
+    id: sub.id,
+    user_id: userId,
+    status: deleted ? "canceled" : sub.status,
+    plan,
+    price_id: base?.price.id ?? null,
+    metered_item_id: metered?.id ?? null,
+    current_period_start: first?.current_period_start ? new Date(first.current_period_start * 1000).toISOString() : null,
+    current_period_end: first?.current_period_end ? new Date(first.current_period_end * 1000).toISOString() : null,
+    cancel_at_period_end: sub.cancel_at_period_end,
+  });
 
-    case "invoice.payment_succeeded": {
-      const invoice = event.data.object as Stripe.Invoice;
-      console.log(`[Stripe] Invoice paid: ${invoice.id}, amount: ${invoice.amount_paid}`);
-      break;
-    }
-
-    case "identity.verification_session.verified": {
-      const session = event.data.object as Stripe.Identity.VerificationSession;
-      console.log(`[Stripe Identity] Creator verified: ${session.id}, Metadata:`, session.metadata);
-      // In production: Grant creator verified badge and enable payout capabilities
-      break;
-    }
-
-    default:
-      console.log(`[Stripe Webhook] Unhandled event type: ${event.type}`);
-  }
+  await admin
+    .from("profiles")
+    .update({
+      plan: effective,
+      credits_included: PLANS[effective].credits,
+      storage_quota_bytes: PLANS[effective].storageBytes + storageAddons * 10 * 1024 ** 3,
+      stripe_customer_id: customer,
+    })
+    .eq("id", userId);
 }
